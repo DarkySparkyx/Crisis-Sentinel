@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ariadna — panel operatora</title>
+<style>
+ :root{--bg:#0b0f14;--fg:#e5e7eb;--mut:#94a3b8;--acc:#22d3ee;--warn:#f59e0b;--bad:#ef4444;--ok:#22c55e}
+ *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 ui-monospace,SFMono-Regular,monospace;padding:24px}
+ h1{font-size:18px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin:0 0 18px}
+ .row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+ button{flex:1 1 220px;min-height:110px;border:1px solid #334155;border-radius:14px;background:#111827;color:var(--fg);
+        font:700 17px/1.3 inherit;letter-spacing:.08em;cursor:pointer;transition:.12s}
+ button:hover{transform:translateY(-2px)} button.on{background:var(--acc);color:#0b0f14;border-color:var(--acc)}
+ #denied.on{background:var(--bad);border-color:var(--bad);color:#fff} #spoof.on{background:var(--warn);border-color:var(--warn);color:#0b0f14}
+ .panel{border:1px solid #1f2937;border-radius:12px;padding:14px}
+ .k{color:var(--mut)} pre{margin:0;white-space:pre-wrap;font-size:12px;color:var(--mut)}
+</style>
+</head>
+<body>
+<h1>Ariadna · panel operatora</h1>
+<div class="row">
+  <button id="normal" onclick="go('NORMAL')">GNSS OK<br><span class="k">stan wyjściowy</span></button>
+  <button id="denied" onclick="go('DENIED')">GNSS ZAGŁUSZONY<br><span class="k">włącz nawigację magnetyczno-inercyjną</span></button>
+  <button id="spoof"  onclick="go('SPOOFED')">GNSS PODROBIONY<br><span class="k">pokaż detekcję niespójności</span></button>
+</div>
+<div class="panel">
+  <div><span class="k">stan:</span> <b id="st">—</b> &nbsp; <span class="k">telefony:</span> <b id="n">0</b></div>
+  <pre id="log"></pre>
+</div>
+<script>
+ const log = (m) => { const l = document.getElementById('log'); l.textContent = (new Date().toLocaleTimeString()+'  '+m+'\n'+l.textContent).slice(0, 4000); };
+ async function go(s){ await fetch('/api/v1/scenario/'+s, {method:'POST'}); }
+ function paint(s){
+   document.getElementById('st').textContent = s;
+   for (const [id,v] of [['normal','NORMAL'],['denied','DENIED'],['spoof','SPOOFED']])
+     document.getElementById(id).classList.toggle('on', s===v);
+ }
+ const ws = new WebSocket((location.protocol==='https:'?'wss://':'ws://')+location.host+'/ws/ops');
+ ws.onopen = () => log('połączono z serwerem');
+ ws.onclose = () => log('ROZŁĄCZONO — nawigacja na telefonie działa dalej');
+ ws.onmessage = (e) => { const m = JSON.parse(e.data);
+   if (m.type==='scenario'){ paint(m.scenario); log('scenariusz -> '+m.scenario); }
+   if (m.type==='fix'){ document.getElementById('n').textContent = m.clients ?? '1'; } };
+</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "name": "@ariadna/replay",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": { "ariadna-replay": "src/cli.ts" }
+}

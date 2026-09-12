@@ -1,0 +1,6 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.20
+# Świadomie BEZ geopandas/shapely: ciągną GDAL, instalacja potrafi zająć
+# 30 minut i wysypać się na hakatonie. GeoJSON to zwykły JSON — obsługujemy
+# go standardową biblioteką.

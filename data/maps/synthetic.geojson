@@ -1,0 +1,163 @@
+{
+ "type": "FeatureCollection",
+ "properties": {
+  "origin": {
+   "lat": 52.2297,
+   "lon": 21.0122
+  },
+  "generated_by": "tools/make_venue.ts",
+  "corridor_width_m": 2.6
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "walkable",
+    "name": "oś korytarza"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      21.0122,
+      52.2297
+     ],
+     [
+      21.01263999,
+      52.2297
+     ],
+     [
+      21.01263999,
+      52.2298617
+     ],
+     [
+      21.0122,
+      52.2298617
+     ],
+     [
+      21.0122,
+      52.2297
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "wall",
+    "side": "left"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      21.0122,
+      52.22971168
+     ],
+     [
+      21.01263999,
+      52.22971168
+     ],
+     [
+      21.01262093,
+      52.2297
+     ],
+     [
+      21.01262093,
+      52.2298617
+     ],
+     [
+      21.01263999,
+      52.22985002
+     ],
+     [
+      21.0122,
+      52.22985002
+     ],
+     [
+      21.01221907,
+      52.2298617
+     ],
+     [
+      21.01221907,
+      52.2297
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "wall",
+    "side": "right"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      21.0122,
+      52.22968832
+     ],
+     [
+      21.01263999,
+      52.22968832
+     ],
+     [
+      21.01265906,
+      52.2297
+     ],
+     [
+      21.01265906,
+      52.2298617
+     ],
+     [
+      21.01263999,
+      52.22987337
+     ],
+     [
+      21.0122,
+      52.22987337
+     ],
+     [
+      21.01218093,
+      52.2298617
+     ],
+     [
+      21.01218093,
+      52.2297
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "haven",
+    "id": "H1",
+    "name": "Wejście / punkt zborny"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     21.0122,
+     52.2297
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "haven",
+    "id": "H2",
+    "name": "Klatka schodowa B"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     21.01263999,
+     52.2298617
+    ]
+   }
+  }
+ ]
+}
