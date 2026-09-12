@@ -41,7 +41,30 @@ node packages/replay/src/cli.ts run    data/recordings/ocena.jsonl \
       --venue data/maps/synthetic.geojson --magmap data/magmaps/demo.json --svg data/out/demo.svg
 ```
 
-Strojenie parametrów filtru (siatka `sigmaTurn` × `sigmaLen` × `magWeight`):
+### Strona z wynikami
+
+`docs/report.html` to samodzielna strona z wykresami — otwiera się z dysku, bez serwera.
+Powstaje z szablonu i świeżo policzonych danych:
+
+```bash
+npm run report            # metryki -> data/out/report-data.json -> docs/report.html
+xdg-open docs/report.html
+```
+
+| Plik | Rola |
+|---|---|
+| `tools/export_report_data.ts` | liczy wszystkie metryki (ablacja, CDF, kalibracja, sweepy) do JSON-a |
+| `docs/report.template.html` | układ, style i kod wykresów; dane wchodzą w placeholder `__DATA__` |
+| `tools/build_report.ts` | wstrzykuje JSON w szablon |
+| `docs/report.html` | wynik — **nie edytuj ręcznie**, jest nadpisywany |
+
+Po zebraniu prawdziwych przejść po korytarzu podmień `generate()` na wczytywanie nagrań
+`.jsonl` w `tools/export_report_data.ts` i uruchom `npm run report` — wykresy zostają,
+zmieniają się tylko liczby.
+
+### Strojenie parametrów filtru
+
+Siatka `sigmaTurn` × `sigmaLen` × `magWeight`:
 
 ```bash
 node packages/replay/src/cli.ts sweep data/recordings/ocena.jsonl \

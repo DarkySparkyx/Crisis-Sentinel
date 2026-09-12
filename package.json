@@ -9,18 +9,14 @@
     "node": ">=22.6"
   },
   "scripts": {
-    "doctor": "node scripts/check-node.mjs && node -e \"console.log('Node', process.version, '- OK. Uruchom: npm test, npm run bench')\"",
-    "pretest": "node scripts/check-node.mjs",
-    "test": "NODE_OPTIONS=--experimental-strip-types node --test packages/core/test/*.test.ts packages/replay/test/*.test.ts",
-    "prebench": "node scripts/check-node.mjs",
-    "bench": "NODE_OPTIONS=--experimental-strip-types node tools/make_venue.ts --out data/maps/synthetic.geojson --quiet && NODE_OPTIONS=--experimental-strip-types node packages/replay/src/bench.ts",
-    "presynth": "node scripts/check-node.mjs",
-    "synth": "NODE_OPTIONS=--experimental-strip-types node packages/replay/src/cli.ts synth",
-    "prereplay": "node scripts/check-node.mjs",
-    "replay": "NODE_OPTIONS=--experimental-strip-types node packages/replay/src/cli.ts run",
-    "presweep": "node scripts/check-node.mjs",
-    "sweep": "NODE_OPTIONS=--experimental-strip-types node packages/replay/src/cli.ts sweep",
-    "predemo": "node scripts/check-node.mjs",
-    "demo": "NODE_OPTIONS=--experimental-strip-types node tools/make_venue.ts --out data/maps/synthetic.geojson --quiet && NODE_OPTIONS=--experimental-strip-types node packages/replay/src/cli.ts synth --seed 7 --out data/recordings/kalibracja.jsonl && NODE_OPTIONS=--experimental-strip-types node packages/replay/src/cli.ts survey data/recordings/kalibracja.jsonl --out data/magmaps/demo.json && NODE_OPTIONS=--experimental-strip-types node packages/replay/src/cli.ts synth --seed 23 --out data/recordings/ocena.jsonl && NODE_OPTIONS=--experimental-strip-types node packages/replay/src/cli.ts run data/recordings/ocena.jsonl --venue data/maps/synthetic.geojson --magmap data/magmaps/demo.json --svg data/out/demo.svg"
+    "doctor": "node scripts/check-node.mjs",
+    "test": "node scripts/run.mjs --test packages/core/test/*.test.ts packages/replay/test/*.test.ts",
+    "bench": "node scripts/run.mjs tools/make_venue.ts --out data/maps/synthetic.geojson --quiet && node scripts/run.mjs packages/replay/src/bench.ts",
+    "synth": "node scripts/run.mjs packages/replay/src/cli.ts synth",
+    "replay": "node scripts/run.mjs packages/replay/src/cli.ts run",
+    "survey": "node scripts/run.mjs packages/replay/src/cli.ts survey",
+    "sweep": "node scripts/run.mjs packages/replay/src/cli.ts sweep",
+    "demo": "node scripts/run.mjs tools/make_venue.ts --out data/maps/synthetic.geojson --quiet && node scripts/run.mjs packages/replay/src/cli.ts synth --seed 7 --out data/recordings/kalibracja.jsonl && node scripts/run.mjs packages/replay/src/cli.ts survey data/recordings/kalibracja.jsonl --out data/magmaps/demo.json && node scripts/run.mjs packages/replay/src/cli.ts synth --seed 23 --out data/recordings/ocena.jsonl && node scripts/run.mjs packages/replay/src/cli.ts run data/recordings/ocena.jsonl --venue data/maps/synthetic.geojson --magmap data/magmaps/demo.json --svg data/out/demo.svg",
+    "report": "node scripts/run.mjs tools/make_venue.ts --out data/maps/synthetic.geojson --quiet && node scripts/run.mjs tools/export_report_data.ts && node scripts/run.mjs tools/build_report.ts"
   }
 }
