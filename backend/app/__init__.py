@@ -1,1 +1,0 @@
-"""Crisis Sentinel backend package."""
